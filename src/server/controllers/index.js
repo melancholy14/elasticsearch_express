@@ -13,7 +13,7 @@ async function getQuotes(req, res) {
     }
 
     try {
-        const result = model.getQuotes(query);
+        const result = await model.getQuotes(query);
         res.status(200).json({
             success: true,
             data: result,
@@ -41,9 +41,7 @@ async function addQuote(req, res) {
     }
 
     try {
-        const result = model.addNewQuote(body.quote, body.author);
-
-        console.log('------ addNewQuote: result', result, 'result.body', result.body);
+        const result = await model.insertNewQuote(body.quote, body.author);
 
         res.status(200).json({
             success: true,

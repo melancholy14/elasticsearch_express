@@ -38,7 +38,7 @@ async function getQuotes(req) {
     };
 }
 
-async function addNewQuote(quote, author) {
+async function insertNewQuote(quote, author) {
     console.log('------ addNewQuote: quote', quote, 'author', author);
 
     return esclient.index({
@@ -53,5 +53,5 @@ async function addNewQuote(quote, author) {
 
 module.exports = {
     getQuotes,
-    addNewQuote,
+    insertNewQuote,
 };

@@ -9,7 +9,7 @@ require('dotenv').config();
     const isElasticReady = await elastic.checkConnection();
 
     if (isElasticReady) {
-        const elasticIndex = elastic.esclient.indices.exists({ index: elastic.index });
+        const elasticIndex = await elastic.esclient.indices.exists({ index: elastic.index });
 
         if (!elasticIndex.body) {
             await elastic.createIndex(elastic.index);
