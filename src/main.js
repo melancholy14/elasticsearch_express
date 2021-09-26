@@ -1,0 +1,23 @@
+const elastic = require('./elastic');
+const data = require('./data');
+
+const server = require('./server');
+
+require('dotenv').config();
+
+(async function main() {
+    const isElasticReady = await elastic.checkConnection();
+
+    if (isElasticReady) {
+        const elasticIndex = elastic.esclient.indices.exists({ index: elastic.index });
+
+        if (!elasticIndex.body) {
+            await elastic.createIndex(elastic.index);
+            await elastic.setQuotesMapping();
+
+            await data.populateDatabase();
+        }
+
+        server.start();
+    }
+})();
