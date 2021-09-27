@@ -1,13 +1,14 @@
-const { Client } = require('@elastic/elasticsearch');
+import { Client } from '@elastic/elasticsearch';
 
 require('dotenv').config();
 
 const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
-const esclient = new Client({ node: elasticUrl });
-const index = "quotes";
-const type = "quotes";
+export const esclient = new Client({ node: elasticUrl });
 
-async function createIndex(index){
+export const index = "quotes";
+export const type = "quotes";
+
+export async function createIndex(index: string){
     try {
         await esclient.indices.create({ index });
         console.log(`Created Index ${index}`);
@@ -17,7 +18,7 @@ async function createIndex(index){
     }
 }
 
-async function setQuotesMapping() {
+export async function setQuotesMapping() {
     try {
         const schema = {
             quote: {
@@ -44,7 +45,7 @@ async function setQuotesMapping() {
     }
 }
 
-function checkConnection(){
+export function checkConnection(){
     return new Promise(async (resolve) => {
         console.log('Checking connection to ElasticSearch...');
 
@@ -64,12 +65,3 @@ function checkConnection(){
         resolve(true);
     });
 }
-
-module.exports = {
-    esclient,
-    index,
-    type,
-    createIndex,
-    setQuotesMapping,
-    checkConnection,
-};

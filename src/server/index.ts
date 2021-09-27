@@ -9,7 +9,7 @@ const app = express();
 
 const port = process.env.NODE_PORT || 3000;
 
-function start() {
+export function start() {
     return app
             .use(cors())
             .use(bodyParser.urlencoded({ extended: false }))
@@ -18,7 +18,3 @@ function start() {
             .use((_req, res) => res.status(404).json({ success: false, error: 'Route Not Found' }))
             .listen(port, () => { console.log(`Server ready on port ${port}`); });
 }
-
-module.exports = {
-    start,
-};

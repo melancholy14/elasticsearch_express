@@ -1,7 +1,7 @@
-const elastic = require('./elastic');
-const data = require('./data');
+import * as elastic from './elastic';
+import * as data from './data';
 
-const server = require('./server');
+import * as server from './server';
 
 require('dotenv').config();
 

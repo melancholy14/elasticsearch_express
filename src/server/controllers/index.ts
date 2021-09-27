@@ -1,6 +1,6 @@
-const model = require('../models');
+import * as model from '../models';
 
-async function getQuotes(req, res) {
+export async function getQuotes(req, res) {
     const query = req.query;
 
     if(!query.text) {
@@ -28,7 +28,7 @@ async function getQuotes(req, res) {
     }
 }
 
-async function addQuote(req, res) {
+export async function addQuote(req, res) {
     const body = req.body;
 
     if (!body.quote || !body.author) {
@@ -59,9 +59,4 @@ async function addQuote(req, res) {
             error: 'Internal Error',
         });
     }
-}
-
-module.exports = {
-    getQuotes,
-    addQuote,
 }

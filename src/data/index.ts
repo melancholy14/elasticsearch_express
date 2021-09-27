@@ -1,5 +1,5 @@
-const elastic = require('../elastic');
-const quotes = require('./quotes.json');
+import * as elastic from '../elastic';
+import quotes from './quotes.json';
 
 const esAction = {
     index: {
@@ -8,7 +8,7 @@ const esAction = {
     },
 };
 
-async function populateDatabase() {
+export async function populateDatabase() {
     const docs = [];
     for (const quote of quotes) {
         docs.push(esAction);
@@ -16,8 +16,4 @@ async function populateDatabase() {
     }
 
     return elastic.esclient.bulk({ body: docs });
-}
-
-module.exports = {
-    populateDatabase,
 }

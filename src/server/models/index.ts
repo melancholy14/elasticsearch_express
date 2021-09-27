@@ -1,6 +1,6 @@
-const { esclient, index, type } = require('../../elastic');
+import { esclient, index, type } from '../../elastic';
 
-async function getQuotes(req) {
+export async function getQuotes(req) {
     const query = {
         query: {
             match: {
@@ -13,7 +13,7 @@ async function getQuotes(req) {
         }
     };
 
-    const { body: { hits } = {} } = await esclient.search({
+    const { body: { hits = {} } = {} } = await esclient.search({
         from: req.page || 0,
         size: req.limit || 100,
         index,
@@ -38,9 +38,7 @@ async function getQuotes(req) {
     };
 }
 
-async function insertNewQuote(quote, author) {
-    console.log('------ addNewQuote: quote', quote, 'author', author);
-
+export async function insertNewQuote(quote, author) {
     return esclient.index({
         index,
         type,
@@ -50,8 +48,3 @@ async function insertNewQuote(quote, author) {
         },
     });
 }
-
-module.exports = {
-    getQuotes,
-    insertNewQuote,
-};
