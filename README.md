@@ -31,8 +31,10 @@ This repo is aiming to show how to build the backend service using elasticsearch
 
 ## How to install
 
-## How to run
-
+## How to run on locally
+This step is assuming you already installed docker on your machine. If not, please check this link.
+If you did or finished installing it, you can type the below command on the root location of this repo.
+> docker-compose up
 
 ## To do
 
