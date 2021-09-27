@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && pm2-runtime start ./build/main.js --name node_app",
+    "start": "pm2-runtime start ./build/main.js --name node_app",
     "stop": "pm2-runtime stop node_app",
     "dev": "nodemon ./src/main.ts",
     "build": "tsc --project ./"
