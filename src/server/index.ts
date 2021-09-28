@@ -1,7 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const routes = require('./routes');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+
+import * as routes from './routes';
 
 require('dotenv').config();
 
@@ -14,7 +15,9 @@ export function start() {
             .use(cors())
             .use(bodyParser.urlencoded({ extended: false }))
             .use(bodyParser.json())
-            .use("/quotes", routes)
+            .use("/questions", routes.questions)
+            .use("/answers", routes.answers)
+            .use("/users", routes.users)
             .use((_req, res) => res.status(404).json({ success: false, error: 'Route Not Found' }))
             .listen(port, () => { console.log(`Server ready on port ${port}`); });
 }

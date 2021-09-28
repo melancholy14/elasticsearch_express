@@ -13,7 +13,9 @@ require('dotenv').config();
 
         if (!elasticIndex.body) {
             await elastic.createIndex(elastic.index);
-            await elastic.setQuotesMapping();
+            await elastic.setUserMapping();
+            await elastic.setQuestionMapping();
+            await elastic.setAnswerMapping();
 
             await data.populateDatabase();
         }

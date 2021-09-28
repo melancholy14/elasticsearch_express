@@ -1,0 +1,10 @@
+[
+    {
+        "email": "admin@data-bank.ai",
+        "password": "admin"
+    },
+    {
+        "email": "tester@data-bank.ai",
+        "password": "tester"
+    }
+]
