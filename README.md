@@ -26,6 +26,31 @@ This repo is aiming to show how to build the backend service using elasticsearch
 ## Architecture
 
 ## Data Model
+There are three data models.
+1. Question: this has a question, an answer, and options.
+```
+  Question: {
+    question: text,   // the context for the question
+    answer: text,     // the answer of the question
+    options: text[],  // the options of the question
+  }
+```
+2. User: this has an email and a password.
+```
+  User: {
+    email: text,    // the email of the user account
+    password: text, // the password of the user account. This should be encrypted
+  }
+```
+3. Answer: this has a question_id, a user_id, an answer, and a boolean value that represents if the answer is correct or not.
+```
+  Answer: {
+    question_id: text,  // the id of the question that a user answered
+    user_id: text,      // the id of the user who answer the question
+    answer: text,       // the answer that the user made
+    correct: boolean,   // if the answer is correct or not
+  }
+```
 
 ## Functions
 
