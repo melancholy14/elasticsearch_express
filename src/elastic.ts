@@ -5,8 +5,11 @@ require('dotenv').config();
 const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
 export const esclient = new Client({ node: elasticUrl });
 
-export const index = "quotes";
-export const type = "quotes";
+export const index = "exams";
+
+export const question_type = "questions";
+export const answer_type = "answers";
+export const user_type = "users";
 
 export async function createIndex(index: string){
     try {
@@ -18,29 +21,92 @@ export async function createIndex(index: string){
     }
 }
 
-export async function setQuotesMapping() {
+export async function setQuestionMapping() {
     try {
         const schema = {
-            quote: {
+            question: {
                 type: 'text'
             },
-            author: {
+            answer: {
+                type: 'text'
+            },
+            options: {
                 type: 'text'
             }
         };
 
         await esclient.indices.putMapping({
             index,
-            type,
+            type: question_type,
             include_type_name: true,
             body: {
                 properties: schema,
             }
         });
 
-        console.log('Quotes mapping created successfully');
+        console.log('Questions mapping created successfully');
     } catch (error) {
-        console.error('An error occurred while setting the quotes mapping:');
+        console.error('An error occurred while setting the questions mapping:');
+        console.error(error);
+    }
+}
+
+export async function setUserMapping() {
+    try {
+        const schema = {
+            email: {
+                type: 'text'
+            },
+            password: {
+                type: 'text'
+            }
+        };
+
+        await esclient.indices.putMapping({
+            index,
+            type: user_type,
+            include_type_name: true,
+            body: {
+                properties: schema,
+            }
+        });
+
+        console.log('Users mapping created successfully');
+    } catch (error) {
+        console.error('An error occurred while setting the users mapping:');
+        console.error(error);
+    }
+}
+
+export async function setAnswerMapping() {
+    try {
+        const schema = {
+            user_id: {
+                type: 'text'
+            },
+            question_id: {
+                type: 'text'
+            },
+            answer: {
+                type: 'text'
+            },
+            correct: {
+                type: 'boolean'
+            }
+        };
+
+        await esclient.indices.putMapping({
+            index,
+            type: answer_type,
+            include_type_name: true,
+            body: {
+                properties: schema,
+            }
+        });
+
+        console.log('Answers mapping created successfully');
+    } catch (error) {
+        console.error('An error occurred while setting the answers mapping:');
         console.error(error);
     }
 }

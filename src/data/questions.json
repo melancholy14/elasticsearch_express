@@ -1,0 +1,17 @@
+[
+    {
+        "question": "Is it true that 1 + 1 = 2 ?",
+        "answer": "true",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Is it true that 1 + 1 = 4 ?",
+        "answer": "false",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "The uk is bigger than Japan?",
+        "answer": "true",
+        "options": ["true", "false"]
+    }
+]

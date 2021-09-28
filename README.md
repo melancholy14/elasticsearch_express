@@ -57,9 +57,9 @@ There are three data models.
 ## How to install
 
 ## How to run on locally
-This step is assuming you already installed docker on your machine. If not, please check this link.
+This step is assuming you already installed docker on your machine. If not, please check [this link](https://docs.docker.com/desktop/).
 If you did or finished installing it, you can type the below command on the root location of this repo.
-> docker-compose up
+> elasticsearch_express % docker-compose up
 
 ## To do
 
