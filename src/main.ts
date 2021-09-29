@@ -1,42 +1,47 @@
-import * as elastic from './elastic';
-import * as data from './data';
+import * as elastic from "./elastic";
+import * as data from "./data";
 
-import * as server from './server';
+import * as server from "./server";
 
-require('dotenv').config();
+require("dotenv").config();
 
 (async function main() {
-    const isElasticReady = await elastic.checkConnection();
+  const isElasticReady = await elastic.checkConnection();
 
-    if (isElasticReady) {
+  if (isElasticReady) {
+    const elasticUserIndex = await elastic.esclient.indices.exists({
+      index: elastic.userIndex,
+    });
 
-        const elasticUserIndex = await elastic.esclient.indices.exists({ index: elastic.user_index });
+    if (!elasticUserIndex.body) {
+      await elastic.createIndex(elastic.userIndex);
+      await elastic.setUserMapping();
 
-        if (!elasticUserIndex.body) {
-            await elastic.createIndex(elastic.user_index);
-            await elastic.setUserMapping();
-
-            await data.populateUserDatabase();
-        }
-
-        const elasticQuestionIndex = await elastic.esclient.indices.exists({ index: elastic.question_index });
-
-        if (!elasticQuestionIndex.body) {
-            await elastic.createIndex(elastic.question_index);
-            await elastic.setQuestionMapping();
-
-            await data.populateQuestionDatabase();
-        }
-
-        const elasticAnswerIndex = await elastic.esclient.indices.exists({ index: elastic.answer_index });
-
-        if (!elasticAnswerIndex.body) {
-            await elastic.createIndex(elastic.answer_index);
-            await elastic.setAnswerMapping();
-
-            await data.populateAnswerDatabase();
-        }
-
-        server.start();
+      await data.populateUserDatabase();
     }
+
+    const elasticQuestionIndex = await elastic.esclient.indices.exists({
+      index: elastic.questionIndex,
+    });
+
+    if (!elasticQuestionIndex.body) {
+      await elastic.createIndex(elastic.questionIndex);
+      await elastic.setQuestionMapping();
+
+      await data.populateQuestionDatabase();
+    }
+
+    const elasticAnswerIndex = await elastic.esclient.indices.exists({
+      index: elastic.answerIndex,
+    });
+
+    if (!elasticAnswerIndex.body) {
+      await elastic.createIndex(elastic.answerIndex);
+      await elastic.setAnswerMapping();
+
+      await data.populateAnswerDatabase();
+    }
+
+    server.start();
+  }
 })();

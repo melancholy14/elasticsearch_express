@@ -1,62 +1,61 @@
-import * as elastic from '../elastic';
+import * as elastic from "../elastic";
 
-import users from './users.json';
-import questions from './questions.json';
-import answers from './answers.json';
+import users from "./users.json";
+import questions from "./questions.json";
+import answers from "./answers.json";
 
 const esQuestionAction = {
-    index: {
-        _index: elastic.question_index,
-        _type: elastic.question_type,
-    },
+  index: {
+    _index: elastic.questionIndex,
+    _type: elastic.questionType,
+  },
 };
 
 const esUserAction = {
-    index: {
-        _index: elastic.user_index,
-        _type: elastic.user_type,
-    },
+  index: {
+    _index: elastic.userIndex,
+    _type: elastic.userType,
+  },
 };
 
 const esAnswerAction = {
-    index: {
-        _index: elastic.answer_index,
-        _type: elastic.answer_type,
-    },
+  index: {
+    _index: elastic.answerIndex,
+    _type: elastic.answerType,
+  },
 };
 
 export async function populateUserDatabase() {
-    const docs = [];
+  const docs = [];
 
-    for (const user of users) {
-        docs.push(esUserAction);
-        docs.push(user);
-    }
-    
-    return elastic.esclient.bulk({ body: docs });
+  for (const user of users) {
+    docs.push(esUserAction);
+    docs.push(user);
+  }
+
+  return elastic.esclient.bulk({ body: docs });
 }
 
 export async function populateQuestionDatabase() {
-    const docs = [];
+  const docs = [];
 
-    for (const question of questions) {
-        docs.push(esQuestionAction);
-        docs.push(question);
-    }
+  for (const question of questions) {
+    docs.push(esQuestionAction);
+    docs.push(question);
+  }
 
-    return elastic.esclient.bulk({ body: docs });
+  return elastic.esclient.bulk({ body: docs });
 }
 
 export async function populateAnswerDatabase() {
-    const docs = [];
+  const docs = [];
 
-    for (const answer of answers) {
-        console.log('answer', answer);
-        
-        docs.push(esAnswerAction);
-        docs.push(answer);
-    }
+  for (const answer of answers) {
+    console.log("answer", answer);
 
-    return elastic.esclient.bulk({ body: docs });
+    docs.push(esAnswerAction);
+    docs.push(answer);
+  }
+
+  return elastic.esclient.bulk({ body: docs });
 }
-

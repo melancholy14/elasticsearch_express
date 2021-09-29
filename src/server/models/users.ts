@@ -1,55 +1,55 @@
-import { esclient, user_index as index, user_type as type } from '../../elastic';
+import { esclient, userIndex as index, userType as type } from "../../elastic";
 
 export async function getUsers(req) {
-    const query = {};
+  const query = {};
 
-    const { body: { hits = {} } = {} } = await esclient.search({
-        from: req.page || 0,
-        size: req.limit || 100,
-        index,
-        type,
-        body: query,
-    });
+  const { body: { hits = {} } = {} } = await esclient.search({
+    from: req.page || 0,
+    size: req.limit || 100,
+    index,
+    type,
+    body: query,
+  });
 
-    const results = hits.total.value;
+  const results = hits.total.value;
 
-    const values = hits.hits.map(hit => ({
-        id: hit._id,
-        email: hit._source.email,
-    }));
+  const values = hits.hits.map((hit) => ({
+    id: hit._id,
+    email: hit._source.email,
+  }));
 
-    return {
-        results,
-        values,
-    }
+  return {
+    results,
+    values,
+  };
 }
 
 export async function getUser(id: string) {
-    const query = {
-        query: {
-            match: {
-                id: {
-                    query: id,
-                }
-            }
-        }
-    };
+  const query = {
+    query: {
+      match: {
+        id: {
+          query: id,
+        },
+      },
+    },
+  };
 
-    const { body: { hits = {} } = {} } = await esclient.search({
-        index,
-        type,
-        body: query,
-    });
+  const { body: { hits = {} } = {} } = await esclient.search({
+    index,
+    type,
+    body: query,
+  });
 
-    const results = hits.total.value;
+  const results = hits.total.value;
 
-    const values = hits.hits.map(hit => ({
-        id: hit._id,
-        email: hit._source.email
-    }));
+  const values = hits.hits.map((hit) => ({
+    id: hit._id,
+    email: hit._source.email,
+  }));
 
-    return {
-        results,
-        values,
-    };
+  return {
+    results,
+    values,
+  };
 }
