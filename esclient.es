@@ -1,14 +1,16 @@
-GET /quotes/_search
+GET /questions/_search
+
+GET /users/_search
+
+GET /answers/_search
 
 ###
-GET /quotes/_search
+GET /questions/_search
 {
     "query": {
         "match": {
-            "quote": {
-                "query": "love",
-                "operator": "and",
-                "fuzziness": "auto"
+            "_id": {
+                "query": "ydoJM3wBHpNDTeASeq54"
             }
         }
     }

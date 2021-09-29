@@ -1,4 +1,4 @@
-import { esclient, index, user_type } from '../../elastic';
+import { esclient, user_index as index, user_type as type } from '../../elastic';
 
 export async function getUsers(req) {
     const query = {};
@@ -7,7 +7,7 @@ export async function getUsers(req) {
         from: req.page || 0,
         size: req.limit || 100,
         index,
-        type: user_type,
+        type,
         body: query,
     });
 
@@ -37,7 +37,7 @@ export async function getUser(id: string) {
 
     const { body: { hits = {} } = {} } = await esclient.search({
         index,
-        type: user_type,
+        type,
         body: query,
     });
 
