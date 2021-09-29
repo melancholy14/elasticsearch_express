@@ -20,7 +20,7 @@ This repo is aiming to show how to build the backend service using elasticsearch
 3. [ExpressJS](https://expressjs.com/): This has been famous as a top nodejs web application framework for a long time.  It aims minimalism so that developers are able to be flexible to build whatever they want easily.
 4. Google Cloud
 5. [Typescript](https://www.typescriptlang.org/): It's a strongly typed programming language on javascript, developed by Microsoft. Therefore, developers can catch compile errors such as undefined errors by compiling source files. 
-6. ESLint & Prettier
+6. [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/): These two useful libraries assist developers to have consistent code styles/format.
 7. Github Actions
 
 ## Architecture
@@ -66,3 +66,4 @@ If you did or finished installing it, you can type the below command on the root
 ## Reference
 - To setup basic installation: https://towardsdatascience.com/full-text-search-with-node-js-and-elasticsearch-on-docker-edcea23612fd
 - To add Typescript: https://blog.logrocket.com/typescript-with-node-js-and-express/
+- To add ESLint & Prettier: https://www.jeansnyman.com/node/express/node-express-with-typescript/
