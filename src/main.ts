@@ -9,15 +9,32 @@ require('dotenv').config();
     const isElasticReady = await elastic.checkConnection();
 
     if (isElasticReady) {
-        const elasticIndex = await elastic.esclient.indices.exists({ index: elastic.index });
 
-        if (!elasticIndex.body) {
-            await elastic.createIndex(elastic.index);
+        const elasticUserIndex = await elastic.esclient.indices.exists({ index: elastic.user_index });
+
+        if (!elasticUserIndex.body) {
+            await elastic.createIndex(elastic.user_index);
             await elastic.setUserMapping();
+
+            await data.populateUserDatabase();
+        }
+
+        const elasticQuestionIndex = await elastic.esclient.indices.exists({ index: elastic.question_index });
+
+        if (!elasticQuestionIndex.body) {
+            await elastic.createIndex(elastic.question_index);
             await elastic.setQuestionMapping();
+
+            await data.populateQuestionDatabase();
+        }
+
+        const elasticAnswerIndex = await elastic.esclient.indices.exists({ index: elastic.answer_index });
+
+        if (!elasticAnswerIndex.body) {
+            await elastic.createIndex(elastic.answer_index);
             await elastic.setAnswerMapping();
 
-            await data.populateDatabase();
+            await data.populateAnswerDatabase();
         }
 
         server.start();

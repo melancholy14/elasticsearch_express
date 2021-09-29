@@ -5,11 +5,13 @@ require('dotenv').config();
 const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
 export const esclient = new Client({ node: elasticUrl });
 
-export const index = "exams";
+export const question_index = "questions";
+export const answer_index = "answers";
+export const user_index = "users";
 
-export const question_type = "questions";
-export const answer_type = "answers";
-export const user_type = "users";
+export const question_type = "question";
+export const answer_type = "answer";
+export const user_type = "user";
 
 export async function createIndex(index: string){
     try {
@@ -36,7 +38,7 @@ export async function setQuestionMapping() {
         };
 
         await esclient.indices.putMapping({
-            index,
+            index: question_index,
             type: question_type,
             include_type_name: true,
             body: {
@@ -63,7 +65,7 @@ export async function setUserMapping() {
         };
 
         await esclient.indices.putMapping({
-            index,
+            index: user_index,
             type: user_type,
             include_type_name: true,
             body: {
@@ -96,7 +98,7 @@ export async function setAnswerMapping() {
         };
 
         await esclient.indices.putMapping({
-            index,
+            index: answer_index,
             type: answer_type,
             include_type_name: true,
             body: {

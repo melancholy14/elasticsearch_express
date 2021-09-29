@@ -1,4 +1,4 @@
-import { esclient, index, question_type } from '../../elastic';
+import { esclient, question_index as index, question_type as type } from '../../elastic';
 
 export async function getQuestions(req) {
     const query = {};
@@ -7,7 +7,7 @@ export async function getQuestions(req) {
         from: req.page || 0,
         size: req.limit || 100,
         index,
-        type: question_type,
+        type,
         body: query,
     });
 
@@ -39,7 +39,7 @@ export async function getQuestion(id: string) {
 
     const { body: { hits = {} } = {} } = await esclient.search({
         index,
-        type: question_type,
+        type,
         body: query,
     });
 
@@ -61,7 +61,7 @@ export async function getQuestion(id: string) {
 export async function insertNewQuestion(data) {
     return esclient.index({
         index,
-        type: question_type,
+        type,
         body: data,
     });
 }
