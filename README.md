@@ -14,7 +14,7 @@
 This repo is aiming to show how to build the backend service using elasticsearch and express, which offers CRUD for a list of single questions.
 
 ## Features & To do
-- [] User can log in
+- [x] User can log in
 - [] User can take questions 
 - [] User can review the answer is correct after it's submitted
 - [] User can sign in

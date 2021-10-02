@@ -8,8 +8,8 @@ export async function getUsers(req: Request, res: Response) {
   try {
     const data = await service.getUserList({
       query,
-      page: req.page,
-      limit: req.limit,
+      page: req.query.page,
+      limit: req.query.limit,
     });
 
     res.status(200).json({
