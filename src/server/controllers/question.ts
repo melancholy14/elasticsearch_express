@@ -13,11 +13,9 @@ export async function getQuestions(req: Request, res: Response) {
       data,
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
     });
   }
 }
@@ -33,11 +31,9 @@ export async function getQuestion(req: Request, res: Response) {
       data,
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
     });
   }
 }
@@ -71,11 +67,39 @@ export async function addQuestion(req: Request, res: Response) {
       },
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
+    });
+  }
+}
+
+export async function getQuestion4Taking(req: Request, res: Response) {
+  try {
+    const authorization = req.headers.authorization || '';
+
+    if (!authorization) {
+      res.status(401).json({
+        success: false,
+        error: "No required headers: Authorization",
+      });
+
+      return;
+    }
+
+    const userId = authorization.replace('Basic ', '');
+
+    const data = await service.getRandomQuestionByUserId(userId);
+
+    res.status(200).json({
+      success: true,
+      data,
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal Error",
     });
   }
 }

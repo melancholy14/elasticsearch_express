@@ -38,6 +38,38 @@ export async function getAnswers(req) {
   };
 }
 
+export async function getAllQuestionIdAnsweredByUser(userId: string) {
+  const query = {
+    query: {
+      match: {
+        user_id: {
+          query: userId,
+          operator: "and",
+          fuzziness: "auto",
+        },
+      },
+    },
+  };
+
+  const { body: { hits = {} } = {} } = await esclient.search({
+    index,
+    type,
+    body: query,
+  });
+
+  const results = hits.total.value;
+
+  const values = hits.hits.map((hit) => ({
+    id: hit._id,
+    question_id: hit._source.question_id,
+  }));
+
+  return {
+    results,
+    values,
+  };
+}
+
 export async function insertNewAnswer(data) {
   return esclient.index({
     index,

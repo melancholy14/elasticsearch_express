@@ -1,4 +1,5 @@
-import * as model from "../models/question";
+import * as questionModel from "../models/question";
+import * as answerModel from "../models/answers";
 
 export async function getQuestionList(params: any) {
   try {
@@ -6,7 +7,7 @@ export async function getQuestionList(params: any) {
       throw new Error("No parameters(s)");
     }
 
-    const data = await model.getQuestions({
+    const data = await questionModel.getQuestions({
       query: params.query || {},
       page: params.page || 0,
       limit: params.limit || 100,
@@ -26,7 +27,7 @@ export async function getQuestionById(id: string) {
           throw new Error("No parameters(s): id");
         }
     
-        const data = await model.getQuestion(id);
+        const data = await questionModel.getQuestion(id);
     
         return data;
       } catch (error) {
@@ -46,7 +47,7 @@ export async function insertQuestionById(data: {
           throw new Error("No parameters(s): data");
         }
 
-        const result = await model.insertNewQuestion(data);
+        const result = await questionModel.insertNewQuestion(data);
     
         return result.body._id;
       } catch (error) {
@@ -54,4 +55,41 @@ export async function insertQuestionById(data: {
     
         throw error;
       }
+}
+
+export async function getRandomQuestionByUserId(userId: string) {
+  try {
+    if (!userId) {
+      throw new Error("Missing parameter: user_id");
+    }
+
+    // Get all questions answered by this user
+    const answeredQuestions = await answerModel.getAllQuestionIdAnsweredByUser(userId);
+
+    const answeredQuestionIds = [...new Set(answeredQuestions.values.map(ele => ele.question_id))];
+
+    // Get all questions
+    const questionData = await questionModel.allQuestions();
+    const allQuestions = questionData.values;
+
+    // Filter questions if it's answered
+    const unAnswered = allQuestions.filter((question) => answeredQuestionIds.findIndex(question.id) < 0);
+
+    if (unAnswered.length <= 0) {
+      throw new Error("All questions have been answered by this user");
+    }
+
+    // Get the index randomly
+    const randomIndex = Math.floor(Math.random() * unAnswered.length);
+
+    const selectedQuestion = unAnswered[randomIndex];
+
+    delete selectedQuestion.answer;
+
+    return selectedQuestion;
+  } catch (error) {
+    console.error(error);
+
+    throw error;
+  }
 }
