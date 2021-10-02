@@ -56,23 +56,36 @@ export async function getAnswersByQuestion(req: Request, res: Response) {
   }
 }
 
-export async function addAnswer(req: Request, res: Response) {
-  const { question_id, user_id, answer } = req.body || {};
+export async function submitAnswer(req: Request, res: Response) {
+  const authorization = req.headers.authorization || '';
 
-  if (!question_id || !user_id || !answer) {
+    if (!authorization) {
+      res.status(401).json({
+        success: false,
+        error: "No required headers: Authorization",
+      });
+
+      return;
+    }
+
+    const user_id = authorization.replace('Basic ', '');
+
+  const { question_id, answer } = req.body || {};
+
+  if (!question_id || !answer) {
     res.status(422).json({
       success: false,
-      error: "Missing required parameter(s): question_id, user_id, or answer",
+      error: "Missing required parameter(s): question_id, or answer",
     });
     return;
   }
 
   try {
-    const id = await service.addAnswer({ question_id, user_id, answer });
+    const data = await service.submitAnswer({ question_id, user_id, answer });
 
     res.status(200).json({
       success: true,
-      data: id,
+      data,
     });
   } catch (error) {
     res.status(500).json({

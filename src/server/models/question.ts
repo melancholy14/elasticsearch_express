@@ -53,7 +53,7 @@ export async function getQuestion(id: string) {
   const query = {
     query: {
       match: {
-        id: {
+        _id: {
           query: id,
         },
       },
