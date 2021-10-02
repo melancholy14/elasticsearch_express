@@ -1,5 +1,3 @@
-GET /questions/_search
-
 GET /users/_search
 {
     "query": {
@@ -15,14 +13,48 @@ GET /users/_search
 
 GET /answers/_search
 
-###
+GET /questions/_search
+
 GET /questions/_search
 {
     "query": {
         "match": {
             "_id": {
-                "query": "ydoJM3wBHpNDTeASeq54"
+                "query": "mrc2QnwBm8EBqcUDr5wB"
             }
         }
     }
+}
+
+GET /questions/_search
+{
+    "query": {
+        "filter": {
+            "_id": {
+                "query": "mrc2QnwBm8EBqcUDr5wB"
+            }
+        }
+    }
+}
+
+GET /questions/_search
+{
+   "query": {
+      "bool": {
+        //  "must": [
+        //     {
+        //        "_id": {
+        //           "content": "abc"
+        //        }
+        //     }
+        //  ],
+         "must_not": [
+            {
+                "ids": {
+                    "values": ["mrc2QnwBm8EBqcUDr5wB", "2"]
+                }
+            }
+         ]
+      }
+   }
 }
