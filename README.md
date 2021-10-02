@@ -2,17 +2,25 @@
 
 ### Contexts
 1. Goal
-2. Tech Stack
-3. Architecture
-4. Data Model
-5. Functions
+2. Features & To do
+3. Tech Stack
+4. Architecture
+5. Data Model
 6. How to install
-7. How to run
-8. To do
-9. Reference
+7. How to run on locally
+8. Reference
 
 ## Goal
 This repo is aiming to show how to build the backend service using elasticsearch and express, which offers CRUD for a list of single questions.
+
+## Features & To do
+- [] User can log in
+- [] User can take questions 
+- [] User can review the answer is correct after it's submitted
+- [] User can sign in
+- [] User can see all questions and answers that s/he resolved
+- [] Admin can add/edit/delete a question
+- [] Authentication using JWT middleware
 
 ## Tech Stack
 1. [Docker](https://docs.docker.com/get-started/overview/): This software platform enables developers to deliver their applications quickly and consistently. For this time, it lets me build and deploy the nodejs application as well as Elasticsearch.
@@ -25,8 +33,39 @@ This repo is aiming to show how to build the backend service using elasticsearch
 
 ## Architecture
 
+### User Case
+This application would be in charge of the server part in the below case:
+![usercase](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVXNlciBjYXNlCgphY3RvcgAMBQpVc2VyLT5DbGllbnQ6IExvZ2luCgAIBi0-U2VydmVyAA8HIFJlcXVlc3QKbm90ZSByaWdodCBvZiAAHAhjaGVjayBpZiB0aGUgdQBlBm4gbG9nIGluCgBDBgBYDyBSZXNwb25zZQpsb29wIHRha2luZyAAXwVpb25zCiAgICAAehBRABcHAIEECSAgICAAexZmaW5kIGEARwkgZnJvbSBlbGFzdGljc2VhcmNoIHJhbWRvbmx5AGYFAIEUEABgCwCBIAcAgQUMVXNlcjogU2hvdwCBbAUAXQlkYXRhAIE1BQCCSg5TZWxlY3QgYW4gYW5zd2VyIGFuZCBzdWJtaQCBPQYAgmIQQQAgBgCBRCIAgmoNAEsGdGVkAF4IaXMgY29ycmVjdCBvciBub3QAcgZhdmUAgSQFIGluAIIEDgCBdBUAgQMJAIFpHmlmIGl0JwBhEACDQQVhbHQAhA0Gd2FudHMgdG8gdGFrZSBhbm90aGVyAINqCQCDbQUAgioSQ2xpY2sgTmV4AINoBmVsAIMEBwASGERvbgCDJgZlbmQKZW5kCgo&s=qsd)
+
+### APIs
+
+1. To log in
+```
+  POST /user/login
+  {
+    "email": "tester@data-bank.ai",
+    "password": "Password"
+  }
+```
+
+2. To retrieve a question
+```
+  GET /question/take
+```
+
+3. To submit answer
+```
+ POST /answer
+ {
+   "question_id": "unique",
+   "user_id": "uid",
+   "answer": "a"
+ }
+```
+
 ## Data Model
 There are three data models.
+
 1. Question: this has a question, an answer, and options.
 ```
   Question: {
@@ -35,6 +74,7 @@ There are three data models.
     options: text[],  // the options of the question
   }
 ```
+
 2. User: this has an email and a password.
 ```
   User: {
@@ -42,6 +82,7 @@ There are three data models.
     password: text, // the password of the user account. This should be encrypted
   }
 ```
+
 3. Answer: this has a question_id, a user_id, an answer, and a boolean value that represents if the answer is correct or not.
 ```
   Answer: {
@@ -52,16 +93,12 @@ There are three data models.
   }
 ```
 
-## Functions
-
 ## How to install
 
 ## How to run on locally
 This step is assuming you already installed docker on your machine. If not, please check [this link](https://docs.docker.com/desktop/).
 If you did or finished installing it, you can type the below command on the root location of this repo.
 > elasticsearch_express % docker-compose up
-
-## To do
 
 ## Reference
 - To setup basic installation: https://towardsdatascience.com/full-text-search-with-node-js-and-elasticsearch-on-docker-edcea23612fd
