@@ -1,9 +1,9 @@
 import express from "express";
-import * as controller from "../controllers/answers";
+import * as controller from "../controllers/answer";
 
 const routes = express.Router();
 
-routes.route("/").post(controller.addAnswer);
+routes.route("/submit").post(controller.submitAnswer);
 
 routes.route("/user/:user_id").get(controller.getAnswersByUser);
 

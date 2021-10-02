@@ -1,5 +1,5 @@
 import * as questionModel from "../models/question";
-import * as answerModel from "../models/answers";
+import * as answerModel from "../models/answer";
 
 export async function getQuestionList(params: any) {
   try {
@@ -64,7 +64,10 @@ export async function getRandomQuestionByUserId(userId: string) {
     }
 
     // Get all questions answered by this user
-    const answeredQuestions = await answerModel.getAllQuestionIdAnsweredByUser(userId);
+    const answeredQuestions = await answerModel.getAnswers({
+      field: "user_id",
+      value: userId,
+    });
 
     const answeredQuestionIds = [...new Set(answeredQuestions.values.map(ele => ele.question_id))];
 
