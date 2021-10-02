@@ -1,5 +1,5 @@
 import express from "express";
-import * as controller from "../controllers/questions";
+import * as controller from "../controllers/question";
 
 const routes = express.Router();
 

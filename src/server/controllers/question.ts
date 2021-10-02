@@ -1,4 +1,4 @@
-import * as model from "../models/questions";
+import * as model from "../models/question";
 
 export async function getQuestions(req, res) {
   const query = req.query;
