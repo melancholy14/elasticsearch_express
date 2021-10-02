@@ -1,6 +1,8 @@
-import * as model from "../models/answer";
+import { Request, Response } from "express";
 
-export async function getAnswersByUser(req, res) {
+import * as service from "../services/answer";
+
+export async function getAnswersByUser(req: Request, res: Response) {
   const user_id = req.params.user_id;
 
   if (!user_id) {
@@ -13,26 +15,21 @@ export async function getAnswersByUser(req, res) {
   }
 
   try {
-    const data = await model.getAnswers({
-      field: "user_id",
-      value: user_id,
-    });
+    const data = await service.getAnswerListByUser(user_id);
 
     res.status(200).json({
       success: true,
       data,
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
     });
   }
 }
 
-export async function getAnswersByQuestion(req, res) {
+export async function getAnswersByQuestion(req: Request, res: Response) {
   const question_id = req.params.question_id;
 
   if (!question_id) {
@@ -45,26 +42,21 @@ export async function getAnswersByQuestion(req, res) {
   }
 
   try {
-    const data = await model.getAnswers({
-      field: "question_id",
-      value: question_id,
-    });
+    const data = await service.getAnswerListByQuestion(question_id);
 
     res.status(200).json({
       success: true,
       data,
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
     });
   }
 }
 
-export async function addAnswer(req, res) {
+export async function addAnswer(req: Request, res: Response) {
   const { question_id, user_id, answer } = req.body || {};
 
   if (!question_id || !user_id || !answer) {
@@ -76,28 +68,16 @@ export async function addAnswer(req, res) {
   }
 
   try {
-    const result = await model.insertNewAnswer({
-      question_id,
-      user_id,
-      answer,
-    });
+    const id = await service.addAnswer({ question_id, user_id, answer });
 
     res.status(200).json({
       success: true,
-      data: {
-        id: result.body._id,
-        user_id,
-        question_id,
-        answer,
-        correct: result.body.correct,
-      },
+      data: id,
     });
   } catch (error) {
-    console.error(error);
-
     res.status(500).json({
       success: false,
-      error: "Internal Error",
+      error: error.message || "Internal Error",
     });
   }
 }
