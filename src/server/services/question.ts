@@ -1,5 +1,5 @@
 import * as questionModel from "../models/question";
-import * as answerModel from "../models/answers";
+import * as answerModel from "../models/answer";
 
 export async function getQuestionList(params: any) {
   try {

@@ -1,4 +1,4 @@
-import * as model from "../models/answers";
+import * as model from "../models/answer";
 
 export async function getAnswersByUser(req, res) {
   const user_id = req.params.user_id;
