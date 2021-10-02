@@ -42,22 +42,24 @@ This application would be in charge of the server part in the below case:
 1. To log in
 ```
   POST /user/login
-  content-type: application/json
-  authorization: Basic tester@data-bank.ai:Password
+  Content-type: application/json
+  Authorization: Basic tester@data-bank.ai:Password
   {}
 ```
 
 2. To retrieve a question
 ```
   GET /question/take
+  Authorization: Basic user_id
 ```
 
 3. To submit answer
 ```
  POST /answer
+ Content-type: application/json
+ Authorization: Basic user_id
  {
    "question_id": "unique",
-   "user_id": "uid",
    "answer": "a"
  }
 ```
@@ -97,7 +99,7 @@ There are three data models.
 ## How to run on locally
 This step is assuming you already installed docker on your machine. If not, please check [this link](https://docs.docker.com/desktop/).
 If you did or finished installing it, you can type the below command on the root location of this repo.
-> elasticsearch_express % docker-compose up
+> elasticsearch_express > docker-compose up
 
 ## Reference
 - To setup basic installation: https://towardsdatascience.com/full-text-search-with-node-js-and-elasticsearch-on-docker-edcea23612fd
