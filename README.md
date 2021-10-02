@@ -17,10 +17,10 @@ This repo is aiming to show how to build the backend service using elasticsearch
 - [x] User can log in
 - [] User can take questions 
 - [] User can review the answer is correct after it's submitted
+- [] Authentication using JWT middleware
 - [] User can sign in
 - [] User can see all questions and answers that s/he resolved
 - [] Admin can add/edit/delete a question
-- [] Authentication using JWT middleware
 
 ## Tech Stack
 1. [Docker](https://docs.docker.com/get-started/overview/): This software platform enables developers to deliver their applications quickly and consistently. For this time, it lets me build and deploy the nodejs application as well as Elasticsearch.
@@ -42,10 +42,9 @@ This application would be in charge of the server part in the below case:
 1. To log in
 ```
   POST /user/login
-  {
-    "email": "tester@data-bank.ai",
-    "password": "Password"
-  }
+  content-type: application/json
+  authorization: Basic tester@data-bank.ai:Password
+  {}
 ```
 
 2. To retrieve a question
