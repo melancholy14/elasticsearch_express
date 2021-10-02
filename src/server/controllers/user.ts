@@ -6,11 +6,7 @@ export async function getUsers(req: Request, res: Response) {
   const query = req.query;
 
   try {
-    const data = await service.getUserList({
-      query,
-      page: req.query.page,
-      limit: req.query.limit,
-    });
+    const data = await service.getUserList(query);
 
     res.status(200).json({
       success: true,

@@ -1,4 +1,4 @@
-import questions from "./questions";
+import questions from "./question";
 import answers from "./answers";
 import users from "./user";
 
