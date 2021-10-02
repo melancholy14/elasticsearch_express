@@ -14,11 +14,11 @@
 This repo is aiming to show how to build the backend service using elasticsearch and express, which offers CRUD for a list of single questions.
 
 ## Features & To do
-- [x] User can log in
-- [x] User can take questions 
-- [x] User can review the answer is correct after it's submitted
+- [x] User can log in: [PR#5](https://github.com/melancholy14/elasticsearch_express/pull/5)
+- [x] User can take questions: [PR#6](https://github.com/melancholy14/elasticsearch_express/pull/6)
+- [x] User can review the answer is correct after it's submitted: [PR#7](https://github.com/melancholy14/elasticsearch_express/pull/7)
 - [ ] Authentication using JWT middleware
-- [ ] User can sign in
+- [ ] User can sign up
 - [ ] User can see all questions and answers that s/he resolved
 - [ ] Admin can add/edit/delete a question
 
