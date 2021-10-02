@@ -1,10 +1,13 @@
-import * as model from "../models/question";
+import { Request, Response } from 'express';
 
-export async function getQuestions(req, res) {
+import * as service from "../services/question";
+
+export async function getQuestions(req: Request, res: Response) {
   const query = req.query;
 
   try {
-    const data = await model.getQuestions(query);
+    const data = await service.getQuestionList(query);
+
     res.status(200).json({
       success: true,
       data,
@@ -19,11 +22,12 @@ export async function getQuestions(req, res) {
   }
 }
 
-export async function getQuestion(req, res) {
+export async function getQuestion(req: Request, res: Response) {
   const id = req.params.id;
 
   try {
-    const data = await model.getQuestion(id);
+    const data = await service.getQuestionById(id);
+
     res.status(200).json({
       success: true,
       data,
@@ -38,7 +42,7 @@ export async function getQuestion(req, res) {
   }
 }
 
-export async function addQuestion(req, res) {
+export async function addQuestion(req: Request, res: Response) {
   const { question, answer, options } = req.body || {};
 
   if (!question || !answer || !options) {
@@ -51,12 +55,16 @@ export async function addQuestion(req, res) {
   }
 
   try {
-    const result = await model.insertNewQuestion({ question, answer, options });
+    const id = await service.insertQuestionById({
+      question,
+      answer,
+      options,
+    });
 
     res.status(200).json({
       success: true,
       data: {
-        id: result.body._id,
+        id,
         question,
         answer,
         options,

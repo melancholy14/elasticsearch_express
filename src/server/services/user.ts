@@ -2,11 +2,7 @@ import { Base64 } from "js-base64";
 
 import * as model from "../models/user";
 
-export async function getUserList(params: {
-  query: any;
-  page: any;
-  limit: any;
-}) {
+export async function getUserList(params: any) {
   try {
     if (!params) {
       throw new Error("No parameters(s)");
