@@ -1,3 +1,5 @@
+import { Base64 } from "js-base64";
+
 import * as elastic from "../elastic";
 
 import users from "./users.json";
@@ -30,7 +32,13 @@ export async function populateUserDatabase() {
 
   for (const user of users) {
     docs.push(esUserAction);
-    docs.push(user);
+
+    const newUser = {
+      ...user,
+      password: Base64.encode(user.password),
+    };
+
+    docs.push(newUser);
   }
 
   return elastic.esclient.bulk({ body: docs });

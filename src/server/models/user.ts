@@ -1,11 +1,17 @@
 import { esclient, userIndex as index, userType as type } from "../../elastic";
 
-export async function getUsers(req) {
-  const query = {};
-
+export async function getUsers({
+  query,
+  page,
+  limit,
+}: {
+  query: Record<string, string>;
+  page: number;
+  limit: number;
+}) {
   const { body: { hits = {} } = {} } = await esclient.search({
-    from: req.page || 0,
-    size: req.limit || 100,
+    from: page,
+    size: limit,
     index,
     type,
     body: query,
@@ -24,12 +30,20 @@ export async function getUsers(req) {
   };
 }
 
-export async function getUser(id: string) {
+export async function getUser({
+  field,
+  value,
+}: {
+  field: string;
+  value: string;
+}) {
   const query = {
     query: {
       match: {
-        id: {
-          query: id,
+        [field]: {
+          query: value,
+          operator: "and",
+          fuzziness: "auto",
         },
       },
     },
@@ -46,6 +60,7 @@ export async function getUser(id: string) {
   const values = hits.hits.map((hit) => ({
     id: hit._id,
     email: hit._source.email,
+    password: hit._source.password,
   }));
 
   return {
