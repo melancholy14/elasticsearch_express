@@ -29,7 +29,7 @@ export async function getQuestionById(id: string) {
     
         const data = await questionModel.getQuestion(id);
     
-        return data;
+        return data.values[0];
       } catch (error) {
         console.error(error);
     
