@@ -87,9 +87,9 @@ export async function getQuestion4Taking(req: Request, res: Response) {
       return;
     }
 
-    const userId = authorization.replace('Basic ', '');
+    const auth = authorization.replace('Basic ', '');
 
-    const data = await service.getRandomQuestionByUserId(userId);
+    const data = await service.getRandomQuestionByUserId(auth);
 
     res.status(200).json({
       success: true,

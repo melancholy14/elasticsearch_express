@@ -62,8 +62,8 @@ export async function getUserByEmail(user: string) {
     }
 
     const result = {
-      id: values[0]._id,
-      email: values[0]._source.email,
+      id: values[0].id,
+      email: values[0].email,
     };
 
     return result;

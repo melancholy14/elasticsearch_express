@@ -57,26 +57,23 @@ export async function insertQuestionById(data: {
       }
 }
 
-export async function getRandomQuestionByUserId(userId: string) {
+export async function getRandomQuestionByUserId(user_id: string) {
   try {
-    if (!userId) {
+    if (!user_id) {
       throw new Error("Missing parameter: user_id");
     }
 
     // Get all questions answered by this user
     const answeredQuestions = await answerModel.getAnswers({
       field: "user_id",
-      value: userId,
+      value: user_id,
     });
 
-    const answeredQuestionIds = [...new Set(answeredQuestions.values.map(ele => ele.question_id))];
+    const answeredQuestionIds = [...new Set(answeredQuestions.values.map(({ question_id }) => question_id))];
 
-    // Get all questions
-    const questionData = await questionModel.allQuestions();
-    const allQuestions = questionData.values;
-
-    // Filter questions if it's answered
-    const unAnswered = allQuestions.filter((question) => answeredQuestionIds.findIndex(question.id) < 0);
+    // Get all questions except already answered ones
+    const questionData = await questionModel.getExcludedQuestions(answeredQuestionIds);
+    const unAnswered = questionData.values;
 
     if (unAnswered.length <= 0) {
       throw new Error("All questions have been answered by this user");

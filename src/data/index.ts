@@ -59,8 +59,6 @@ export async function populateAnswerDatabase() {
   const docs = [];
 
   for (const answer of answers) {
-    console.log("answer", answer);
-
     docs.push(esAnswerAction);
     docs.push(answer);
   }

@@ -7,7 +7,10 @@ import {
 export async function getAnswers(params: {
   field: string;
   value: string;
-}) {
+}): Promise<{
+  results: number;
+  values: { id: string; question_id: string; answer: string; correct: boolean }[];
+}> {
   const query = {
     query: {
       match: {

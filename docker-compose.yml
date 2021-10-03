@@ -12,7 +12,7 @@ services:
       - NODE_PORT=3000
       - ELASTIC_URL=http://elasticsearch:9200
     volumes:
-      - .:/usr/src/app/quotes
+      - .:/usr/src/app/exams
     command: npm run start
     links:
       - elasticsearch
