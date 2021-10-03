@@ -76,7 +76,7 @@ export async function getRandomQuestionByUserId(user_id: string) {
     const unAnswered = questionData.values;
 
     if (unAnswered.length <= 0) {
-      throw new Error("All questions have been answered by this user");
+      return {};
     }
 
     // Get the index randomly

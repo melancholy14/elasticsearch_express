@@ -13,6 +13,15 @@ GET /users/_search
 
 GET /answers/_search
 
+POST /answers/_delete_by_query
+{
+    "query": {
+        "match": {
+            "user_id": "mbc2QnwBm8EBqcUDrpwn"
+        }
+    }
+}
+
 GET /questions/_search
 
 GET /questions/_search
