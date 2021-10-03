@@ -3,7 +3,18 @@ import { Request, Response } from "express";
 import * as service from "../services/answer";
 
 export async function getAnswersByUser(req: Request, res: Response) {
-  const user_id = req.params.user_id;
+  const authorization = req.headers.authorization || "";
+
+  if (!authorization) {
+    res.status(401).json({
+      success: false,
+      error: "No required headers: Authorization",
+    });
+
+    return;
+  }
+
+  const user_id = authorization.replace("Basic ", "");
 
   if (!user_id) {
     res.status(422).json({
@@ -29,7 +40,7 @@ export async function getAnswersByUser(req: Request, res: Response) {
   }
 }
 
-export async function getAnswersByQuestion(req: Request, res: Response) {
+export async function getAnswersByQuestionId(req: Request, res: Response) {
   const question_id = req.params.question_id;
 
   if (!question_id) {
@@ -42,7 +53,7 @@ export async function getAnswersByQuestion(req: Request, res: Response) {
   }
 
   try {
-    const data = await service.getAnswerListByQuestion(question_id);
+    const data = await service.getAnswerListByQuestionId(question_id);
 
     res.status(200).json({
       success: true,
@@ -57,18 +68,18 @@ export async function getAnswersByQuestion(req: Request, res: Response) {
 }
 
 export async function submitAnswer(req: Request, res: Response) {
-  const authorization = req.headers.authorization || '';
+  const authorization = req.headers.authorization || "";
 
-    if (!authorization) {
-      res.status(401).json({
-        success: false,
-        error: "No required headers: Authorization",
-      });
+  if (!authorization) {
+    res.status(401).json({
+      success: false,
+      error: "No required headers: Authorization",
+    });
 
-      return;
-    }
+    return;
+  }
 
-    const user_id = authorization.replace('Basic ', '');
+  const user_id = authorization.replace("Basic ", "");
 
   const { question_id, answer } = req.body || {};
 

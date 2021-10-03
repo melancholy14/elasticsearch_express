@@ -20,7 +20,7 @@ export async function getAnswerListByUser(user_id: string) {
   }
 }
 
-export async function getAnswerListByQuestion(question_id: string) {
+export async function getAnswerListByQuestionId(question_id: string) {
   try {
     if (!question_id) {
       throw new Error("No parameters(s): user_id");

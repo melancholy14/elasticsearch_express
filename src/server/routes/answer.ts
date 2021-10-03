@@ -5,8 +5,8 @@ const routes = express.Router();
 
 routes.route("/submit").post(controller.submitAnswer);
 
-routes.route("/user/:user_id").get(controller.getAnswersByUser);
+routes.route("/my").get(controller.getAnswersByUser);
 
-routes.route("/question/:question_id").get(controller.getAnswersByQuestion);
+routes.route("/question/:question_id").get(controller.getAnswersByQuestionId);
 
 export default routes;
