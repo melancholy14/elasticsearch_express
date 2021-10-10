@@ -13,5 +13,40 @@
         "question": "The uk is bigger than Japan?",
         "answer": "true",
         "options": ["true", "false"]
+    },
+    {
+        "question": "5 * 7.5 = ?",
+        "answer": "37.5",
+        "options": ["32.5", "34.5", "37.5", "40.5"]
+    },
+    {
+        "question": "Kimchi is Korean food?",
+        "answer": "true",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Does Tenerife island belongs to Europe??",
+        "answer": "true",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Is 3477 prime number? ?",
+        "answer": "false",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Does Bubble waffle have a bubble inside?",
+        "answer": "false",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Vodka is originated in Russia?",
+        "answer": "false",
+        "options": ["true", "false"]
+    },
+    {
+        "question": "Ale is originated in England?",
+        "answer": "true",
+        "options": ["true", "false"]
     }
 ]
