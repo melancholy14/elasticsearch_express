@@ -26,10 +26,10 @@ This repo is aiming to show how to build the backend service using elasticsearch
 1. [Docker](https://docs.docker.com/get-started/overview/): This software platform enables developers to deliver their applications quickly and consistently. For this time, it lets me build and deploy the nodejs application as well as Elasticsearch.
 2. [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html): ElasticSearch is one of the most popular search engines, written in Java. It has a reputation for offering real-time search, [multitenancy](https://en.wikipedia.org/wiki/Multitenancy) and et cetera. It behaves like a database for this project which provides CRUD of simple questions. 
 3. [ExpressJS](https://expressjs.com/): This has been famous as a top nodejs web application framework for a long time.  It aims minimalism so that developers are able to be flexible to build whatever they want easily.
-4. Google Cloud
+4. [AWS](https://aws.amazon.com/): One of the most famous cloud service providers. I can be supported to use this provider by my working place so I chose it.
 5. [Typescript](https://www.typescriptlang.org/): It's a strongly typed programming language on javascript, developed by Microsoft. Therefore, developers can catch compile errors such as undefined errors by compiling source files. 
 6. [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/): These two useful libraries assist developers to have consistent code styles/format.
-7. Github Actions
+7. Github Actions: TBD
 
 ## Architecture
 
@@ -95,6 +95,29 @@ There are three data models.
 ```
 
 ## How to install
+This can be updatd if [`Terraform`](https://www.terraform.io/) or any other CI tools are used
+1. Set up EC2 & Access to it using Terminal
+2. Download Git, Docker & Docker-compose
+    - Git: https://gamoo12.tistory.com/205
+    - Docker: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+    - Docker-compose: https://docs.docker.com/compose/install/
+
+### Trouble-shouting
+Q. ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?: https://stackoverflow.com/questions/34532696/docker-compose-cant-connect-to-docker-daemon
+
+    A. Start docker service and give a permission
+
+Q. WARNING: no logs are available with the 'none' log driver: https://stackoverflow.com/questions/45182256/warning-no-logs-are-available-with-the-none-log-driver
+
+    A. Remove `driver:none`
+
+Q. OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release: https://github.com/elastic/elasticsearch/issues/43911
+
+    A. JVM Memory should be adjusted depending on the memory of the EC2 instance
+
+Q.exited with code 254: https://stackoverflow.com/questions/49656445/npm-i-running-command-failed-exit-code-254
+
+    A. Check logs & make sure all paths of files copied are correct
 
 ## How to run on locally
 This step is assuming you already installed docker on your machine. If not, please check [this link](https://docs.docker.com/desktop/).
